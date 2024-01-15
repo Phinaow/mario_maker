@@ -1,0 +1,5 @@
+sf::Image image;
+
+    image.create(4, 4, sf::Color::Blue);
+    if(image.saveToFile("Out1.png"))
+        std::cout << "yes" << std::endl;
