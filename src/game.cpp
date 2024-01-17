@@ -18,7 +18,7 @@ Game::~Game()
 {
     sf::Image image;
 
-    image.create(this->_map.grid.size(), this->_map.grid.size(), sf::Color::Blue);
+    image.create(WIDTH_GRID_SIZE, HEIGHT_GRID_SIZE, sf::Color::Blue);
 
     for(int i = 0; i < this->_map.grid.size(); i++)
     {
@@ -60,10 +60,10 @@ void Game::update()
         int x = (int)(pos.x / this->_map._cell_size);
         int y = (int)(pos.y / this->_map._cell_size);
 
-        if(x == this->_map.grid.size()/2 + 2 && y == HEIGHT_GRID_SIZE + 1)
+        if(x == (int)(this->_camera.getPostion().x / this->_map._cell_size) + 2 && y == HEIGHT_GRID_SIZE + 1)
             this->choice = 0;
 
-        if(x == this->_map.grid.size()/2 - 2 && y == HEIGHT_GRID_SIZE + 1)
+        if(x == (int)(this->_camera.getPostion().x / this->_map._cell_size) - 2 && y == HEIGHT_GRID_SIZE + 1)
             this->choice = 1;
 
         if(x >= 0 && x < WIDTH_GRID_SIZE && y >= 0 && y < HEIGHT_GRID_SIZE)
@@ -126,16 +126,16 @@ void Game::drawMap()
 
     pos.x = 500;
     pos.y = 100;
-    this->setSprite("sky.png", pos, sf::Vector2f{1000, 200});
+    this->setSprite("sky.png", pos, sf::Vector2f{2000, 400});
     this->_window->draw(this->_ressources._sprites["sky.png"]);
 
-    int size_x = (int)(this->_camera.getPostion().x/10.f);
+    int size_x = (int)(this->_camera.getPostion().x / 10.f);
 
-    for(int i = size_x - 17; i < size_x + 17; i++)
+    for (int i = size_x - 17; i < size_x + 18; i++)
     {
-        for(int j = 0; j < this->_map.grid[i].size(); j++)
+        for (int j = 0; j < this->_map.grid[i].size(); j++)
         {
-            if(this->_map.grid[i][j] == 1)
+            if (this->_map.grid[i][j] == 1)
             {
                 pos.x = this->_map._cell_size / 2.f + i * this->_map._cell_size;
                 pos.y = this->_map._cell_size / 2.f + j * this->_map._cell_size;
@@ -152,12 +152,12 @@ void Game::drawMap()
         }
     }
 
-    pos.x = this->_map._cell_size / 2.f + (this->_map.grid.size()/2 - 2) * this->_map._cell_size;
+    pos.x = this->_map._cell_size / 2.f + this->_camera.getPostion().x - 2.f * this->_map._cell_size;
     pos.y = this->_map._cell_size / 2.f + (HEIGHT_GRID_SIZE + 1) * this->_map._cell_size;
     this->setSprite("brick.png", pos, sf::Vector2f{this->_map._cell_size, this->_map._cell_size});
     this->_window->draw(this->_ressources._sprites["brick.png"]);
 
-    pos.x = this->_map._cell_size / 2.f + (this->_map.grid.size()/2 + 2) * this->_map._cell_size;
+    pos.x = this->_map._cell_size / 2.f + this->_camera.getPostion().x + 2.f * this->_map._cell_size;
     pos.y = this->_map._cell_size / 2.f + (HEIGHT_GRID_SIZE + 1) * this->_map._cell_size;
     this->setSprite("cell.png", pos, sf::Vector2f{this->_map._cell_size, this->_map._cell_size});
     this->_window->draw(this->_ressources._sprites["cell.png"]);

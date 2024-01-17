@@ -4,12 +4,13 @@
 
 #include <unordered_map>
 #include <string>
+#include <iostream>
 
 #include "camera.h"
 #include "ressources.h"
 #include "map.h"
 
-#define WIDTH_GRID_SIZE 150
+#define WIDTH_GRID_SIZE 500
 #define HEIGHT_GRID_SIZE 17
 
 class Game
